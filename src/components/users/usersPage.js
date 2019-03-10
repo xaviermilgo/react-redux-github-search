@@ -3,14 +3,16 @@ import {Container, Row} from "react-bootstrap";
 import UserForm from './searchForm'
 import {connect} from "react-redux";
 import UserListing from "./listing";
+import {SEARCH_ACTION_THUNK} from "../../actions/githubActions";
 
 class usersPage extends React.Component{
   performSearch(event){
     event.preventDefault();
-    const action = {
-      type: 'SEARCH_USER'
-    };
-    this.props.dispatch(action)
+    let email = this.emailInput.value,
+        login = this.loginInput.value,
+        name = this.nameInput.value;
+
+    this.props.dispatch(SEARCH_ACTION_THUNK(email, login, name))
   }
   render() {
     return <Container className={"px-4"}>

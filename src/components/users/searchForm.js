@@ -14,7 +14,7 @@ const UserForm = (element)=> <Form onSubmit={(e)=>element.performSearch(e)} clas
             <FontAwesomeIcon icon={faAt} />
           </InputGroup.Text>
         </InputGroup.Prepend>
-        <Form.Control type="text" placeholder="username"/>
+        <Form.Control type="text" placeholder="username" ref={(control)=>element.loginInput=control}/>
       </InputGroup>
     </Form.Group>
     <Form.Group as={Col} lg="4" sm="6">
@@ -25,7 +25,7 @@ const UserForm = (element)=> <Form onSubmit={(e)=>element.performSearch(e)} clas
             <FontAwesomeIcon icon={faEnvelope} />
           </InputGroup.Text>
         </InputGroup.Prepend>
-        <Form.Control type="email" placeholder="Email"/>
+        <Form.Control type="email" placeholder="Email" ref={(control)=>element.emailInput=control}/>
       </InputGroup>
     </Form.Group>
     <Form.Group as={Col} lg="4" sm="6">
@@ -36,7 +36,7 @@ const UserForm = (element)=> <Form onSubmit={(e)=>element.performSearch(e)} clas
             <FontAwesomeIcon icon={faIdBadge} />
           </InputGroup.Text>
         </InputGroup.Prepend>
-        <Form.Control type="text" placeholder="Name"/>
+        <Form.Control type="text" placeholder="Name" ref={(control)=>element.nameInput=control}/>
       </InputGroup>
     </Form.Group>
   </Form.Row>
