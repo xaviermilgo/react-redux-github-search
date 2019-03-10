@@ -1,7 +1,8 @@
 import React from "react";
-import {Container} from "react-bootstrap";
+import {Container, Row} from "react-bootstrap";
 import UserForm from './searchForm'
 import {connect} from "react-redux";
+import UserListing from "./listing";
 
 class usersPage extends React.Component{
   performSearch(event){
@@ -12,16 +13,16 @@ class usersPage extends React.Component{
     this.props.dispatch(action)
   }
   render() {
-    return <Container>
-      {UserForm()}
-
+    return <Container className={"px-4"}>
+      <Row>{UserForm(this)}</Row>
+      <Row>{UserListing(this)}</Row>
     </Container>
   }
 }
 
 const mapStateToProps = ()=>{
   return {
-
+    users: []
   }
 };
 

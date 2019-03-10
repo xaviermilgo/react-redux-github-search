@@ -1,6 +1,6 @@
 
 const initialState = {
-  users: {},
+  users: [],
   isFetching: false,
   hasError: false
 };

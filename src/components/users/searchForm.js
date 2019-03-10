@@ -4,7 +4,7 @@ import {Button, InputGroup} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAt, faEnvelope, faIdBadge, faSearch} from "@fortawesome/free-solid-svg-icons";
 
-export default UserForm => <Form onSubmit={e=>this.performSearch(e)}>
+const UserForm = (element)=> <Form onSubmit={(e)=>element.performSearch(e)} className='w-100'>
   <Form.Row>
     <Form.Group as={Col} lg="4" sm="6">
       <Form.Label>Username</Form.Label>
@@ -36,11 +36,13 @@ export default UserForm => <Form onSubmit={e=>this.performSearch(e)}>
             <FontAwesomeIcon icon={faIdBadge} />
           </InputGroup.Text>
         </InputGroup.Prepend>
-        <Form.Control type="email" placeholder="Name"/>
+        <Form.Control type="text" placeholder="Name"/>
       </InputGroup>
     </Form.Group>
   </Form.Row>
   <Button type={"submit"} variant={"outline-success"} className={"float-right"}>
     Search <FontAwesomeIcon icon={faSearch}/>
   </Button>
-</Form>
+</Form>;
+
+export default UserForm
