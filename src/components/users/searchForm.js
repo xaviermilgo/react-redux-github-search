@@ -2,9 +2,9 @@ import React from "react";
 import {Form, Col} from "react-bootstrap";
 import {Button, InputGroup} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faAt, faEnvelope, faIdBadge, faSearch} from "@fortawesome/free-solid-svg-icons";
+import {faAt, faEnvelope, faIdBadge, faSearch, faToiletPaper} from "@fortawesome/free-solid-svg-icons";
 
-const UserForm = (element)=> <Form onSubmit={(e)=>element.performSearch(e)} className='w-100'>
+const UserForm = (element)=> <Form onSubmit={(e)=>element.performSearch(e)} className='w-100 pb-3'>
   <Form.Row>
     <Form.Group as={Col} lg="4" sm="6">
       <Form.Label>Username</Form.Label>
@@ -40,8 +40,11 @@ const UserForm = (element)=> <Form onSubmit={(e)=>element.performSearch(e)} clas
       </InputGroup>
     </Form.Group>
   </Form.Row>
-  <Button type={"submit"} variant={"outline-success"} className={"float-right"}>
+  <Button type={"submit"} variant={"success"} className={"ml-2 float-right"}>
     Search <FontAwesomeIcon icon={faSearch}/>
+  </Button>
+  <Button type={"reset"} variant={"dark"} className={"float-right"}>
+    Clear <FontAwesomeIcon icon={faToiletPaper}/>
   </Button>
 </Form>;
 

@@ -9,6 +9,7 @@ import { LinkContainer } from "react-router-bootstrap"
 import Nav from "react-bootstrap/Nav";
 import BreadCrumbs from "./components/utils/breadcrumbs";
 import NavLink from "react-bootstrap/NavLink";
+import userPage from "./components/users/userPage";
 
 class App extends Component {
   render() {
@@ -40,8 +41,9 @@ class App extends Component {
               </Nav>
             </Navbar>
             <Route path='/:path' component={BreadCrumbs} />
-            <Route path='/users/' component={UsersPage}/>
-            <Route path='/repositories/' component={RepositoriesPage}/>
+            <Route path='/users/' component={UsersPage} exact={true}/>
+            <Route path='/repositories/' component={RepositoriesPage} exact={true}/>
+            <Route path='/user/:user' component={userPage} exact={true}/>
             {/*<Route to={'/about me/'} component={AboutMePage}/>*/}
           </div>
         </Router>

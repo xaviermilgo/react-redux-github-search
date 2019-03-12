@@ -1,4 +1,4 @@
-import store from '../store'
+import store from "../store";
 
 export const SEARCH_USER = (data)=> {
   return {
@@ -34,7 +34,7 @@ export const SEARCH_ACTION_THUNK = (email, login, name) => {
   console.log(data);
   for(let field in data){
     if(data[field] && data[field].length>0){
-      q += `${data[field]}+in:${field}`
+      q += ` ${data[field]}+in:${field}`
     }
   }
   store.dispatch(START_SEARCH());
