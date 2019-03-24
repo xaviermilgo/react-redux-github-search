@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Router, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import history from './history'
+import  './App.css'
 import RepositoriesPage from './components/repositories/repositoriesPage'
 import UsersPage from './components/users/usersPage'
 import Navbar from "react-bootstrap/Navbar";
@@ -43,7 +44,7 @@ class App extends Component {
             <Route path='/:path' component={BreadCrumbs} />
             <Route path='/users/' component={UsersPage} exact={true}/>
             <Route path='/repositories/' component={RepositoriesPage} exact={true}/>
-            <Route path='/user/:user' component={userPage} exact={true}/>
+            <Route path='/users/:user/:info?' component={userPage} exact={true}/>
             {/*<Route to={'/about me/'} component={AboutMePage}/>*/}
           </div>
         </Router>

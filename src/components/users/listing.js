@@ -6,7 +6,7 @@ const UserListing = (element)=>
     <Row>
       {element.props.users.map(user=>
           <Col xs={4} md={3} lg={2} className={"p-1"} key={'user:'+user.login}>
-            <LinkContainer to={"/user/"+user.login} exact={true}>
+            <LinkContainer to={"/users/"+user.login+'/'} exact={true}>
               <div>
               <Image
                   src={user.avatar_url}

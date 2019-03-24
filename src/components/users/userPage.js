@@ -1,31 +1,41 @@
 import React from "react";
 import {connect} from "react-redux";
-import {USER_ACTION_THUNK} from "../../actions/githubUserActions";
-import { LinkContainer } from "react-router-bootstrap"
-import Alert from "./usersPage";
+import {LinkContainer} from "react-router-bootstrap"
+import Alert from "react-bootstrap/Alert";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleNotch, faMapMarkerAlt} from "@fortawesome/free-solid-svg-icons";
-import {Button, ButtonGroup, Card, Col, Image, Nav, Row} from "react-bootstrap";
+import {Card, Col, Image, Nav, Row} from "react-bootstrap";
+import {Route, Switch} from "react-router-dom";
+import Repos from "./details/Repos";
+import user_thunks from "../../actions/githubUserActions";
+import Followers from "./details/Followers";
+import Following from "./details/Following";
+import Container from "react-bootstrap/Container";
 
 class userPage extends React.Component{
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.user !== prevProps.match.params.user) {
+      this.dispatch_event();
+    }
+  }
   componentDidMount() {
-    console.log(this.props);
-    // if(this.props.match){
-    //   let username = this.props.match.params.user;
-    //   this.props.dispatch(USER_ACTION_THUNK(username))
-    // }
+    this.dispatch_event();
+  }
+  dispatch_event() {
+    let username = this.props.match.params.user;
+    this.props.dispatch(user_thunks.fetch_user_info(username))
   }
 
   render() {
     const user = this.props.userInfo;
     if(this.props.isFetching){
-      return <Alert>
+      return <Container><Alert variant='info'>
         <FontAwesomeIcon icon={faCircleNotch} spin={true}/>
-        Loading ...
-      </Alert>
+        &nbsp;&nbsp; Loading ...
+      </Alert></Container>
     }
     return (
-        <div className={'p-4 m-4 bg-light'}>
+        <div className={'container bg-light pb-4'}>
           <Row>
             <Col xs={12} sm={6} md={4} lg={3} className='p-4'>
               <Image
@@ -35,51 +45,66 @@ class userPage extends React.Component{
             </Col>
             <Col xs={12} sm={6} md={8} lg={9} className='p-0'>
               <Card.Body>
-                <Card.Title>{user.name}</Card.Title>
+                <Card.Title>{user.name?user.name:user.login}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">{user.bio}</Card.Subtitle>
-                {user.blog?
+                {user.blog ?
                     <Card.Link href={user.blog}>
                       Blog
-                    </Card.Link>:''}
-                {user.company?
-                <Card.Text>
-                  company:&nbsp;
-                  <Card.Link href={'https://github.com/' + user.company.slice(1,)}>
-                    {user.company.slice(1,)}
-                  </Card.Link>
-                </Card.Text>:''}
-                {user.location?
+                    </Card.Link> : ''}
+                {user.company ?
+                    <Card.Text>
+                      company:&nbsp;
+                      <Card.Link href={'https://github.com/' + user.company.slice(1,)} target='_blank'>
+                        {user.company.slice(1,)}
+                      </Card.Link>
+                    </Card.Text> : ''}
+                {user.location ?
                     <Card.Text>
                       <FontAwesomeIcon icon={faMapMarkerAlt}/>&nbsp;
                       {user.location}
-                    </Card.Text>:''}
+                    </Card.Text> : ''}
               </Card.Body>
             </Col>
           </Row>
-          <Row>
-            <Nav variant="pills">
-                <Nav.Item>
-                  <LinkContainer to="">
+          <div>
+            <Nav variant="pills" fill defaultActiveKey={window.location.href.split('/').reverse()[0]}
+                 className='border-bottom-0'>
+              <Nav.Item>
+                <LinkContainer to="repos">
+                  <Nav.Link>
                     {user.public_repos} public repos
-                  </LinkContainer>
-                </Nav.Item>
-                <Nav.Item>
+                  </Nav.Link>
+                </LinkContainer>
+              </Nav.Item>
+              <Nav.Item>
+                <LinkContainer to="gists">
                   <Nav.Link>
                     {user.public_gists} public gists
                   </Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
+                </LinkContainer>
+              </Nav.Item>
+              <Nav.Item>
+                <LinkContainer to="followers">
                   <Nav.Link>
-                    {user.following} Followers
+                    {user.followers} Followers
                   </Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
+                </LinkContainer>
+              </Nav.Item>
+              <Nav.Item>
+                <LinkContainer to="following">
                   <Nav.Link>
-                    {user.followers} Following
+                    {user.following} Following
                   </Nav.Link>
-                </Nav.Item>
+                </LinkContainer>
+              </Nav.Item>
             </Nav>
-          </Row>
+          </div>
+          <Switch>
+            <Route component={Repos} path={'/users/:username/repos'} exact={true}/>
+            {/*<Router component={} location={'/users/:username/gists'}/>*/}
+            <Route component={Followers} path={'/users/:username/followers'}/>
+            <Route component={Following} path={'/users/:username/following'}/>
+          </Switch>
         </div>
     );
   }
@@ -87,9 +112,9 @@ class userPage extends React.Component{
 
 const mapStateToProps = (state) =>{
   return {
-    userInfo: state.user.userInfo,
-    isFetching: state.user.isFetching,
-    hasError: state.user.hasError
+    userInfo: state.user.info.userInfo,
+    isFetching: state.user.info.isFetching,
+    hasError: state.user.info.hasError
   }
 };
 

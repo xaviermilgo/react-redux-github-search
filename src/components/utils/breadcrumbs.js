@@ -7,7 +7,7 @@ const BreadCrumbs = function(match){
       full = match.match.url,
       text = url.split('/')[0];
   return <span>
-     /&nbsp;<a href={full}>{text}</a>&nbsp;
+     /&nbsp;<a href={full+'/'}>{text}</a>&nbsp;
     <Route path={`${full}/:path`} component={BreadCrumbs} />
   </span>
 };

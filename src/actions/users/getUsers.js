@@ -1,4 +1,4 @@
-import store from "../store";
+import store from "../../store";
 
 export const SEARCH_USER = (data)=> {
   return {
@@ -24,14 +24,13 @@ export const SEARCH_ERROR = (error)=> {
   }
 };
 
-export const SEARCH_ACTION_THUNK = (email, login, name) => {
+export default function search_users(email, login, name){
   const data = {
     email: email.trim(),
     login: login.trim(),
     name: name.trim()
   };
   let q = '';
-  console.log(data);
   for(let field in data){
     if(data[field] && data[field].length>0){
       q += ` ${data[field]}+in:${field}`

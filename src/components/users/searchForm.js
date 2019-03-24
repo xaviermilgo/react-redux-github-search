@@ -2,7 +2,8 @@ import React from "react";
 import {Form, Col} from "react-bootstrap";
 import {Button, InputGroup} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faAt, faEnvelope, faIdBadge, faSearch, faToiletPaper} from "@fortawesome/free-solid-svg-icons";
+import {faAt, faEnvelope, faIdBadge, faSearch} from "@fortawesome/free-solid-svg-icons";
+import {faTimes} from "@fortawesome/free-solid-svg-icons/faTimes";
 
 const UserForm = (element)=> <Form onSubmit={(e)=>element.performSearch(e)} className='w-100 pb-3'>
   <Form.Row>
@@ -25,7 +26,7 @@ const UserForm = (element)=> <Form onSubmit={(e)=>element.performSearch(e)} clas
             <FontAwesomeIcon icon={faEnvelope} />
           </InputGroup.Text>
         </InputGroup.Prepend>
-        <Form.Control type="email" placeholder="Email" ref={(control)=>element.emailInput=control}/>
+        <Form.Control type="text" placeholder="Email" ref={(control)=>element.emailInput=control}/>
       </InputGroup>
     </Form.Group>
     <Form.Group as={Col} lg="4" sm="6">
@@ -44,7 +45,7 @@ const UserForm = (element)=> <Form onSubmit={(e)=>element.performSearch(e)} clas
     Search <FontAwesomeIcon icon={faSearch}/>
   </Button>
   <Button type={"reset"} variant={"dark"} className={"float-right"}>
-    Clear <FontAwesomeIcon icon={faToiletPaper}/>
+    Clear <FontAwesomeIcon icon={faTimes}/>
   </Button>
 </Form>;
 

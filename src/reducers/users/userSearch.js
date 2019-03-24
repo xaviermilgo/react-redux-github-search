@@ -24,11 +24,10 @@ const initialState = {
     }
   ],
   isFetching: false,
-  hasError: false,
-  errorDetail: null
+  hasError: false
 };
 
-function githubSearchReducer (state=initialState, action){
+function userSearchReducer(state=initialState, action){
   switch (action.type) {
     case 'SEARCH_RESULTS':
       return {
@@ -49,12 +48,11 @@ function githubSearchReducer (state=initialState, action){
         ...state,
         users: [],
         isFetching: false,
-        hasError: true,
-        errorDetail: action.error
+        hasError: true
       };
     default:
       return state
   }
 }
 
-export default githubSearchReducer;
+export default userSearchReducer;
