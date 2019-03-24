@@ -11,6 +11,7 @@ import user_thunks from "../../actions/githubUserActions";
 import Followers from "./details/Followers";
 import Following from "./details/Following";
 import Container from "react-bootstrap/Container";
+import Gists from "./details/Gists";
 
 class userPage extends React.Component{
   componentDidUpdate(prevProps) {
@@ -48,7 +49,7 @@ class userPage extends React.Component{
                 <Card.Title>{user.name?user.name:user.login}</Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">{user.bio}</Card.Subtitle>
                 {user.blog ?
-                    <Card.Link href={user.blog}>
+                    <Card.Link href={user.blog} target='_blank'>
                       Blog
                     </Card.Link> : ''}
                 {user.company ?
@@ -101,7 +102,7 @@ class userPage extends React.Component{
           </div>
           <Switch>
             <Route component={Repos} path={'/users/:username/repos'} exact={true}/>
-            {/*<Router component={} location={'/users/:username/gists'}/>*/}
+            <Route component={Gists} path={'/users/:username/gists'}/>
             <Route component={Followers} path={'/users/:username/followers'}/>
             <Route component={Following} path={'/users/:username/following'}/>
           </Switch>

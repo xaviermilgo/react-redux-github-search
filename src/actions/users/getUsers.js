@@ -1,11 +1,6 @@
 import store from "../../store";
+import api from '../../api';
 
-export const SEARCH_USER = (data)=> {
-  return {
-    type:"SEARCH_USER",
-    ...data
-  }
-};
 export const START_SEARCH = ()=> {
   return {
     type:"START_SEARCH"
@@ -38,8 +33,8 @@ export default function search_users(email, login, name){
   }
   store.dispatch(START_SEARCH());
   return function(dispatch, getState) {
-    return fetch(`https://api.github.com/search/users?q=${q}`)
-        .then(data => data.json())
+    return api.get(`search/users?q=${q}`)
+        .then(data => data.data)
         .then(data => {
           if (data.message === "Not Found") {
             //fancy error handle is coming here

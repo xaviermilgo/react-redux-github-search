@@ -1,30 +1,30 @@
-const defaultFollowing = [];
-// userFollowing
+const defaultGists = [];
+// userGists
 const initialState = {
-  following: defaultFollowing,
+  gists: defaultGists,
   isFetching: false,
   hasError: false
 };
 
-function userFollowingReducer(state=initialState, action){
+function userGistsReducer(state=initialState, action){
   switch (action.type) {
-    case 'GET_USER_FOLLOWING_INFO':
+    case 'GET_USER_GISTS_INFO':
       return {
         ...state,
         hasError: false,
-        following: [],
+        gists: [],
         isFetching: true
       };
-    case 'USER_FOLLOWING_RESULTS':
+    case 'USER_GISTS_RESULTS':
       return {
         ...state,
-        following: action.data,
+        gists: action.data,
         isFetching: false,
       };
-    case 'USER_FOLLOWING_ERROR':
+    case 'USER_GISTS_ERROR':
       return {
         ...state,
-        following: [],
+        gists: [],
         isFetching: false,
         hasError: true
       };
@@ -33,4 +33,4 @@ function userFollowingReducer(state=initialState, action){
   }
 }
 
-export default userFollowingReducer;
+export default userGistsReducer;

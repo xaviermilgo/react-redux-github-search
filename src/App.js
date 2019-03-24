@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { Router, Route } from "react-router-dom";
+import {Router, Route, Redirect} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import history from './history'
 import  './App.css'
-import RepositoriesPage from './components/repositories/repositoriesPage'
 import UsersPage from './components/users/usersPage'
 import Navbar from "react-bootstrap/Navbar";
 import { LinkContainer } from "react-router-bootstrap"
 import Nav from "react-bootstrap/Nav";
 import BreadCrumbs from "./components/utils/breadcrumbs";
-import NavLink from "react-bootstrap/NavLink";
 import userPage from "./components/users/userPage";
 
 class App extends Component {
@@ -20,32 +18,22 @@ class App extends Component {
             <Navbar bg={"dark"} variant={"dark"}>
               <Nav variant={"pills"} className={"w-100"}>
                 <Nav.Item>
-                    <Navbar.Brand>Github Search</Navbar.Brand>
-                </Nav.Item>
-                <Nav.Item className={""}>
                   <LinkContainer to="/users/" exact={true}>
-                    <NavLink>Users</NavLink>
+                    <Navbar.Brand>Github Search</Navbar.Brand>
                   </LinkContainer>
                 </Nav.Item>
-
-                <Nav.Item>
-                  <LinkContainer to="/repositories/" exact={true}>
-                    <NavLink>Repositories</NavLink>
-                  </LinkContainer>
-                </Nav.Item>
-                <span className="w-100">.</span>
-                <Nav.Item>
-                  <LinkContainer to="/about/" exact={true}>
-                    <Nav.Link>About</Nav.Link>
+                <span className='m-auto'/>
+                <Nav.Item className='float-right repo-link'>
+                  <LinkContainer to="/users/reivhax/repos" exact={true}>
+                    <Navbar.Text>About Me</Navbar.Text>
                   </LinkContainer>
                 </Nav.Item>
               </Nav>
             </Navbar>
             <Route path='/:path' component={BreadCrumbs} />
-            <Route path='/users/' component={UsersPage} exact={true}/>
-            <Route path='/repositories/' component={RepositoriesPage} exact={true}/>
             <Route path='/users/:user/:info?' component={userPage} exact={true}/>
-            {/*<Route to={'/about me/'} component={AboutMePage}/>*/}
+            <Route path='/users/' component={UsersPage} exact={true}/>
+            <Route path='/' exact={true} render={()=><Redirect to='/users'/>}/>
           </div>
         </Router>
     );

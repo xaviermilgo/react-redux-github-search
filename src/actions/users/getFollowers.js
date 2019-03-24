@@ -1,4 +1,5 @@
 import store from "../../store";
+import api from '../../api';
 
 export const GET_USER_FOLLOWERS_INFO = ()=> {
   return {
@@ -20,8 +21,8 @@ export const USER_FOLLOWERS_ERROR = ()=> {
 export default function fetch_user_followers(username, page, per_page){
   store.dispatch(GET_USER_FOLLOWERS_INFO());
   return function(dispatch) {
-    return fetch(`https://api.github.com/users/${username}/followers?page=${page}&per_page=${per_page}`)
-        .then(data => data.json())
+    return api.get(`users/${username}/followers?page=${page}&per_page=${per_page}`)
+        .then(data => data.data)
         .then(data => {
           if (data.message === "Not Found") {
             //fancy error handle is coming here
