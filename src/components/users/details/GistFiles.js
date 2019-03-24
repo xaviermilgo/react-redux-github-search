@@ -2,17 +2,16 @@ import React from "react";
 import {Card} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronDown, faChevronUp} from "@fortawesome/free-solid-svg-icons";
-import {connect} from "react-redux";
-import {faCircleNotch} from "@fortawesome/free-solid-svg-icons/faCircleNotch";
+import Gist from 'react-gist'
+import moment from "moment";
 
 
-class Gist extends React.Component{
+class GistFiles extends React.Component{
   state = {
     open: [],
   };
   toggleFile(file){
     const {open} = this.state;
-
     if(!open.includes(file.filename)){
       open.push(file.filename);
       this.setState(
@@ -25,15 +24,8 @@ class Gist extends React.Component{
       )
     }
   }
-  showFile(file){
-    return <div className='border-top'>
-        <h2 className='text-center w-100 text-muted my-1'>
-          <FontAwesomeIcon icon={faCircleNotch} spin/>
-        </h2>
-    </div>
-  }
   // noinspection JSMethodCanBeStaticopenFile
-  renderFile(file) {
+  renderFile(gist, file) {
     const open = this.state.open.includes(file.filename);
     return (
         <Card key={file.raw_url} className='mb-2'>
@@ -47,29 +39,27 @@ class Gist extends React.Component{
               </div>
             </div>
           </Card.Header>
-          <Card.Text>
-            {open?this.showFile(file):''}
-          </Card.Text>
+          <div>
+            {open?<Gist id={gist.id} file={file.filename}/>:''}
+          </div>
         </Card>
     );
   }
-
   render() {
     const {gist} = this.props;
-    return <div className={'col-12'}>
-      {Object.values(gist.files).map(file=>
-          this.renderFile(file)
-      )}
+    return <div className={'col-12 p-2'}>
+      <div className={'border rounded p-2'}>
+        gist: <b>{gist.id}</b><br/>
+        created: {moment(gist.created_at).fromNow()}<br/>
+        <b>Files:</b>
+        <div>
+        {Object.values(gist.files).map(file=>
+            this.renderFile(gist, file)
+        )}
+        </div>
+      </div>
     </div>
   }
 }
 
-const mapStateToProps = (state)=>{
-  return {
-    gists: state.user.gists.gists,
-    isFetching: state.user.gists.isFetching,
-    hasError: state.user.gists.hasError
-  }
-};
-
-export default connect(mapStateToProps)(Gist);
+export default GistFiles;

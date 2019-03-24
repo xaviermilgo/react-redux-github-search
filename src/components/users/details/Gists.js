@@ -5,7 +5,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleNotch} from "@fortawesome/free-solid-svg-icons";
 import Paginator from "../../utils/pagination";
 import user_thunks from "../../../actions/githubUserActions";
-import Gist from "./Gist";
+import GistFiles from "./GistFiles";
 
 class Gists extends React.Component{
   componentDidUpdate(prevProps) {
@@ -27,11 +27,10 @@ class Gists extends React.Component{
         &nbsp;&nbsp;Loading ...
       </Alert>
     }
-    console.log(this.props.gists);
     return (
         <Paginator className='repos pt-3' per_page={4}>
           {this.props.gists.map(gist=>
-              <Gist gist={gist} key={gist.node_id}/>
+              <GistFiles gist={gist} key={gist.node_id}/>
           )}
         </Paginator>
     );
