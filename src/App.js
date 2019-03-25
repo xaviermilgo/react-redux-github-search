@@ -34,6 +34,7 @@ class App extends Component {
             <Route path='/users/:user/:info?' component={userPage} exact={true}/>
             <Route path='/users/' component={UsersPage} exact={true}/>
             <Route path='/' exact={true} render={()=><Redirect to='/users'/>}/>
+	    <Route path='/react-redux-github-search/' exact={true} render={()=><Redirect to='/users'/>}/>
           </div>
         </Router>
     );
